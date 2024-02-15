@@ -121,7 +121,7 @@ function filter(event){
   filterList =[];
   if(mode === "all"){
 //전체 리스트 보여준다
- render()
+ filter()
   }else if(mode === "ongoing"){
     for(let i = 0; i <taskList.length; i ++){
       if(taskList[i].isComplete === false){
@@ -129,14 +129,14 @@ function filter(event){
       }
     }
    
-    render();
+    filter();
   }else if(mode === "done"){
     for(let i = 0; i <taskList.length; i ++){
       if(taskList[i].isComplete === true){
         filterList.push(taskList[i]);
       }
     }
-    render();
+    filter();
 }
 }
 
