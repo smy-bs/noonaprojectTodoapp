@@ -106,39 +106,70 @@ render();
 }
 
 
-function deleteTask(id){
+// function deleteTask(id){
+//   for (let i = 0; i < taskList.length; i++) {
+//     if (taskList[i].id == id) {
+//       taskList.splice(i, 1);
+//       break;
+//     }
+//   }
+//   render();
+// }
+
+// 필터된 탭 안에서도 삭제 가능 하도록 수정된 코드
+function deleteTask(id) {
   for (let i = 0; i < taskList.length; i++) {
     if (taskList[i].id == id) {
       taskList.splice(i, 1);
       break;
     }
   }
+  // 삭제 후에도 올바른 필터링된 리스트를 유지하기 위해 다시 필터링을 수행하고 render 함수 호출
+  filter({ target: { id: mode } });
+}
+
+// function filter(event){
+//   mode = event.target.id;
+//   filterList =[];
+//   if(mode === "all"){
+// //전체 리스트 보여준다
+//  render();
+//   }else if(mode === "ongoing"){
+//     for(let i = 0; i <taskList.length; i ++){
+//       if(taskList[i].isComplete === false){
+//         filterList.push(taskList[i])
+//       }
+//     }
+   
+//     render();
+//   }else if(mode === "done"){
+//     for(let i = 0; i <taskList.length; i ++){
+//       if(taskList[i].isComplete === true){
+//         filterList.push(taskList[i]);
+//       }
+//     }
+//     render();
+// }
+// }
+
+// 필터 기능 수정된 코드
+function filter(event) {
+  mode = event.target.id;
+  filterList = [];
+
+  // 모드에 따라 올바른 필터링을 수행
+  if (mode === "all") {
+    filterList = taskList;
+  } else if (mode === "ongoing") {
+    filterList = taskList.filter(task => !task.isComplete);
+  } else if (mode === "done") {
+    filterList = taskList.filter(task => task.isComplete);
+  }
+
+  // 올바른 필터링이 수행된 리스트를 가지고 render 함수 호출
   render();
 }
 
-function filter(event){
-  mode = event.target.id;
-  filterList =[];
-  if(mode === "all"){
-//전체 리스트 보여준다
- render();
-  }else if(mode === "ongoing"){
-    for(let i = 0; i <taskList.length; i ++){
-      if(taskList[i].isComplete === false){
-        filterList.push(taskList[i])
-      }
-    }
-   
-    render();
-  }else if(mode === "done"){
-    for(let i = 0; i <taskList.length; i ++){
-      if(taskList[i].isComplete === true){
-        filterList.push(taskList[i]);
-      }
-    }
-    render();
-}
-}
 
 //버튼을 클릭했을때 함수가 바로 실행되게 하려면 onclick이벤트를 실행할수있다.
 //그리고 함수는 내가 어떤 아이템을 선택했는지 모름 그래서 객체에 아이디를 만들어줘야함
