@@ -41,7 +41,11 @@ function tabsIndicator(e){
 }
 
 function addTask(){
+   // 입력된 값이 공백인지 확인
+   let taskContent = taskInput.value.trim();
   //let taskContent = taskInput.value;  유저가 입력한 값을 받아온다 그런데 할일이 끝났는지 안끝났는지 타입에 대한 정보는 알수없어서 객체를 만들어준다. 
+   // 공백이 아닌 경우에만 작업 추가
+   if(taskContent !== ""){
   let task = {
     id:randomIDGenerate(),
     taskContent: taskInput.value,
@@ -52,7 +56,9 @@ function addTask(){
   console.log(taskList);
   render();
   }
- 
+   // 입력창 초기화
+   taskInput.value = "";
+}
 function render(){
   //내가 선택한 탭에 따라서 
   //리스트를 달리 보여준다.
